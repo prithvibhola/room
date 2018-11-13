@@ -1,0 +1,49 @@
+package prithvi.io.room.ui.githubsearch
+
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import kotlinx.android.synthetic.main.holder_github_user.view.*
+import prithvi.io.room.R
+import prithvi.io.room.data.models.GithubUser
+import prithvi.io.room.ui.base.BaseViewHolder
+import prithvi.io.room.utility.extentions.dispatchListDiff
+import prithvi.io.room.utility.extentions.inflate
+import prithvi.io.room.utility.extentions.roundOff
+
+class SearchAdapter : RecyclerView.Adapter<BaseViewHolder>() {
+
+    var githubUsers: List<GithubUser> = listOf()
+        set(value) {
+            val diffResult = dispatchListDiff(field, value)
+            field = value
+            diffResult.dispatchUpdatesTo(this)
+        }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(parent.inflate(R.layout.holder_github_user))
+
+    override fun getItemCount(): Int = githubUsers.size
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) = holder.bind()
+
+    inner class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
+
+        override fun bind() {
+            super.bind()
+            val user = githubUsers[adapterPosition]
+            itemView.apply {
+                tvName.text = user.login
+                tvScore.text = user.score.roundOff()
+
+                Glide.with(context)
+                        .load(user.avatarUrl)
+                        .apply(RequestOptions.circleCropTransform()
+                                .placeholder(R.color.colorGrayishLight)
+                                .error(R.color.colorGrayishLight))
+                        .into(ivProfile)
+            }
+        }
+    }
+}
