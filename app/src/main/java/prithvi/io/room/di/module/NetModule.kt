@@ -1,7 +1,7 @@
 package prithvi.io.room.di.module
 
 import android.app.Application
-import com.squareup.moshi.KotlinJsonAdapterFactory
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
