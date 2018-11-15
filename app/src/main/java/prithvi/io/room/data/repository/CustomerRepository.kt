@@ -4,6 +4,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CustomerRepository@Inject constructor() {
+class CustomerRepository @Inject constructor() {
+
 
 }

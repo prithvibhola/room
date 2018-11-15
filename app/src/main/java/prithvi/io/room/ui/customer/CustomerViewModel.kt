@@ -10,4 +10,7 @@ class CustomerViewModel @Inject constructor(
         private val scheduler: Scheduler
 ) : BaseViewModel() {
 
+    fun getCustomer() {
+
+    }
 }
