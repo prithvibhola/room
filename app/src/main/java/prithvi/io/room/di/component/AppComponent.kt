@@ -9,10 +9,7 @@ import dagger.android.DaggerApplication
 import dagger.android.support.AndroidSupportInjectionModule
 import prithvi.io.room.FlavourDI
 import prithvi.io.room.RoomApplication
-import prithvi.io.room.di.module.ActivityModule
-import prithvi.io.room.di.module.AppModule
-import prithvi.io.room.di.module.NetModule
-import prithvi.io.room.di.module.ViewModelModule
+import prithvi.io.room.di.module.*
 import javax.inject.Singleton
 
 @Singleton
@@ -23,7 +20,8 @@ import javax.inject.Singleton
     AppModule::class,
     NetModule::class,
     ViewModelModule::class,
-    FlavourDI::class
+    FlavourDI::class,
+    RoomModule::class
 ])
 interface AppComponent : AndroidInjector<DaggerApplication> {
 
