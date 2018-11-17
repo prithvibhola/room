@@ -18,6 +18,7 @@ class CustomerViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val customer: MutableLiveData<Response<List<Customer>>> = MutableLiveData()
+    val insertCustomer: MutableLiveData<Response<Long>> = MutableLiveData()
 
     fun getCustomer() {
         repository.customer.getCustomer()
@@ -27,8 +28,25 @@ class CustomerViewModel @Inject constructor(
                             customer.value = Response.success(it)
                         },
                         onError = {
-                            Timber.e(it, "Could not get customer from database!!")
                             customer.value = Response.error(it)
+                            Timber.e(it, "Could not get customer from database!!")
+                        }
+                )
+                .addTo(getCompositeDisposable())
+    }
+
+    fun insertCustomer(customer: Customer) {
+        repository.customer.getCustomer()
+                .filter { it.isEmpty() }
+                .flatMap { repository.customer.insertCustomer(customer) }
+                .fromWorkerToMain(scheduler)
+                .subscribeBy(
+                        onNext = {
+                            insertCustomer.value = Response.success(it)
+                        },
+                        onError = {
+                            insertCustomer.value = Response.error(it)
+                            Timber.e(it, "Error in inserting customer into database!!")
                         }
                 )
                 .addTo(getCompositeDisposable())

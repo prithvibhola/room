@@ -1,5 +1,6 @@
 package prithvi.io.room.data.repository
 
+import io.reactivex.Flowable
 import prithvi.io.room.data.persistence.Customer
 import prithvi.io.room.data.persistence.Database
 import javax.inject.Inject
@@ -12,5 +13,6 @@ class CustomerRepository @Inject constructor(
 
     fun getCustomer() = database.customerDao().selectAll()
 
-    fun putCustomer(customer: Customer) = database.customerDao().insert(customer)
+    fun insertCustomer(customer: Customer): Flowable<Long> =
+            Flowable.just(customer).map { database.customerDao().insert(customer) }
 }

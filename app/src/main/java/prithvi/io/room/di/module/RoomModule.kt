@@ -15,13 +15,9 @@ class RoomModule {
     @Provides
     @Singleton
     fun provideDatabase(
-            application: Application,
-            callback: RoomDatabase.Callback,
-            migrations: Set<@JvmSuppressWildcards Migration>
+            application: Application
     ): Database {
         return Room.databaseBuilder(application, Database::class.java, "room.db")
-                .addCallback(callback)
-                .addMigrations(*migrations.toTypedArray())
                 .build()
     }
 }
