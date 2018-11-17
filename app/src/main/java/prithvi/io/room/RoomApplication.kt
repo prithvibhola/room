@@ -1,5 +1,6 @@
 package prithvi.io.room
 
+import com.facebook.stetho.Stetho
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import prithvi.io.room.di.component.DaggerAppComponent
@@ -12,6 +13,7 @@ class RoomApplication : DaggerApplication() {
         super.onCreate()
 
         Timber.plant(if (BuildConfig.DEBUG) Timber.DebugTree() else CrashReportingTree())
+        Stetho.initializeWithDefaults(this)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
