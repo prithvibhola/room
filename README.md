@@ -1,5 +1,5 @@
 # Room
-> This is a simple example to demostrate the Room migration in case in which we want to 
+> This is a simple example to demonstrate the Room migration in case in which we want to 
 > 1. Change the datatype of a column in table
 > 2. Make fields either nullable or non-nullable
 > 3. Rename the column name
