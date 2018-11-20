@@ -7,7 +7,7 @@ import com.squareup.moshi.Json
 
 @Entity(tableName = "customer")
 data class Customer(
-        @PrimaryKey @ColumnInfo(name = "id") @Json(name = "id") val id: Long = 0,
+        @PrimaryKey @ColumnInfo(name = "id") val id: Long = 0,
         @ColumnInfo(name = "name") val name: String,
         @ColumnInfo(name = "gender") val gender: String,
         @ColumnInfo(name = "mobile") val mobile: String,
