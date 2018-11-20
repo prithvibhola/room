@@ -5,10 +5,12 @@
 > 3. Rename the column name
 > 4. Add or remove columns from the table
 
-To check the migration:
-First build the project with the commit : 05204801051367f1796d74e98dbc7982ad9af7e5
-In this commit we have customer model as:
-@Entity(tableName = "customer")
+# Migration
+
+First build the project with the commit : `05204801051367f1796d74e98dbc7982ad9af7e5`
+> In this commit we have customer model as:
+
+```@Entity(tableName = "customer")
 data class Customer(
         @PrimaryKey @ColumnInfo(name = "id") @Json(name = "id") val id: Long = 0,
         @ColumnInfo(name = "name") val name: String,
@@ -22,10 +24,12 @@ data class Customer(
         @ColumnInfo(name = "profile_image_url") val profileImageUrl: String,
         @ColumnInfo(name = "current_location") val currentLocation: String
 )
+```
 
-Then over this commit build this commit : afcc717f5cfa311117e06aeecef1cb52ecad0510
-Which has customer model as:
-@Entity(tableName = "customer")
+Then over this commit build this commit : `afcc717f5cfa311117e06aeecef1cb52ecad0510`
+> Which has customer model as:
+
+```@Entity(tableName = "customer")
 data class Customer(
         @PrimaryKey @ColumnInfo(name = "id") val id: Long = 0,
         @ColumnInfo(name = "name") val name: String,
@@ -40,6 +44,7 @@ data class Customer(
         @ColumnInfo(name = "current_location") val currentLocation: String?,
         @ColumnInfo(name = "source") val source: String?
 )
+```
 
 # Project uses:
 - [Koltin]()
