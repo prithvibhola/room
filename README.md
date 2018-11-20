@@ -1,4 +1,45 @@
 # Room
+> This is a simple example to demostrate the Room migration in case in which we want to 
+> 1. Change the datatype of a column in table
+> 2. Make fields either nullable or non-nullable
+> 3. Rename the column name
+> 4. Add or remove columns from the table
+
+To check the migration:
+First build the project with the commit : 05204801051367f1796d74e98dbc7982ad9af7e5
+In this commit we have customer model as:
+@Entity(tableName = "customer")
+data class Customer(
+        @PrimaryKey @ColumnInfo(name = "id") @Json(name = "id") val id: Long = 0,
+        @ColumnInfo(name = "name") val name: String,
+        @ColumnInfo(name = "gender") val gender: String,
+        @ColumnInfo(name = "mobile") val mobile: String,
+        @ColumnInfo(name = "landline") val landLine: String,
+        @ColumnInfo(name = "email") val email: String,
+        @ColumnInfo(name = "user_name") val userName: String,
+        @ColumnInfo(name = "language") val languagePreference: String,
+        @ColumnInfo(name = "wallet_amount") val walletAmount: Long,
+        @ColumnInfo(name = "profile_image_url") val profileImageUrl: String,
+        @ColumnInfo(name = "current_location") val currentLocation: String
+)
+
+Then over this commit build this commit : afcc717f5cfa311117e06aeecef1cb52ecad0510
+Which has customer model as:
+@Entity(tableName = "customer")
+data class Customer(
+        @PrimaryKey @ColumnInfo(name = "id") val id: Long = 0,
+        @ColumnInfo(name = "name") val name: String,
+        @ColumnInfo(name = "gender") val gender: String,
+        @ColumnInfo(name = "mobile") val mobile: String,
+        @ColumnInfo(name = "landline") val landLine: String?,
+        @ColumnInfo(name = "email") val email: String?,
+        @ColumnInfo(name = "user_name") val userName: String,
+        @ColumnInfo(name = "language") val languagePreference: String,
+        @ColumnInfo(name = "wallet_amount") val walletAmount: Double?,
+        @ColumnInfo(name = "profile_image_url") val profileImageUrl: String?,
+        @ColumnInfo(name = "current_location") val currentLocation: String?,
+        @ColumnInfo(name = "source") val source: String?
+)
 
 # Project uses:
 - [Koltin]()
