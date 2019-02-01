@@ -36,56 +36,27 @@ class RoomModule {
         return object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 try {
-                    val cursor = database.query("SELECT * FROM customer")
-                    cursor.use {
-                        if (cursor.moveToFirst()) {
-                            val contentValues = ContentValues()
-                            contentValues.put("id", cursor.getLong(cursor.getColumnIndex("id")))
-                            contentValues.put("name", cursor.getString(cursor.getColumnIndex("name")))
-                            contentValues.put("gender", cursor.getString(cursor.getColumnIndex("gender")))
-                            contentValues.put("mobile", cursor.getString(cursor.getColumnIndex("mobile")))
-                            contentValues.put("landline", cursor.getString(cursor.getColumnIndex("landline")))
-                            contentValues.put("email", cursor.getString(cursor.getColumnIndex("email")))
-                            contentValues.put("user_name", cursor.getString(cursor.getColumnIndex("user_name")))
-                            contentValues.put("language", cursor.getString(cursor.getColumnIndex("language")))
-                            contentValues.put("wallet_amount", cursor.getDouble(cursor.getColumnIndex("wallet_amount")))
-                            contentValues.put("profile_image_url", cursor.getString(cursor.getColumnIndex("profile_image_url")))
-                            contentValues.put("current_location", cursor.getString(cursor.getColumnIndex("current_location")))
-                            contentValues.put("source", "Android")
-
+                    val c = database.query("SELECT * FROM customer")
+                    c.use {
+                        if (c.moveToFirst()) {
+                            val cv = ContentValues()
+                            cv.put("id", c.getLong(c.getColumnIndex("id")))
+                            cv.put("name", c.getString(c.getColumnIndex("name")))
+                            cv.put("gender", c.getString(c.getColumnIndex("gender")))
+                            cv.put("mobile", c.getString(c.getColumnIndex("mobile")))
+                            cv.put("landline", c.getString(c.getColumnIndex("landline")))
+                            cv.put("email", c.getString(c.getColumnIndex("email")))
+                            cv.put("user_name", c.getString(c.getColumnIndex("user_name")))
+                            cv.put("language", c.getString(c.getColumnIndex("language")))
+                            cv.put("wallet_amount", c.getDouble(c.getColumnIndex("wallet_amount")))
+                            cv.put("profile_image_url", c.getString(c.getColumnIndex("profile_image_url")))
+                            cv.put("current_location", c.getString(c.getColumnIndex("current_location")))
+                            cv.put("source", "Android")
                             database.execSQL("DROP TABLE IF EXISTS `customer`")
-                            database.execSQL("""CREATE TABLE IF NOT EXISTS `customer` (
-                                `id` INTEGER NOT NULL,
-                                `name` TEXT NOT NULL,
-                                `gender` TEXT NOT NULL,
-                                `mobile` TEXT NOT NULL,
-                                `landline` TEXT,
-                                `email` TEXT,
-                                `user_name` TEXT NOT NULL,
-                                `language` TEXT NOT NULL,
-                                `wallet_amount` REAL,
-                                `profile_image_url` TEXT,
-                                `current_location` TEXT,
-                                `source` TEXT,
-                                PRIMARY KEY(`id`))""".trimIndent())
-
-                            database.insert("customer", 0, contentValues)
+                            createCustomerTable(database)
+                            database.insert("customer", 0, cv)
                         } else {
-                            database.execSQL("DROP TABLE IF EXISTS `customer`")
-                            database.execSQL("""CREATE TABLE IF NOT EXISTS `customer` (
-                                `id` INTEGER NOT NULL,
-                                `name` TEXT NOT NULL,
-                                `gender` TEXT NOT NULL,
-                                `mobile` TEXT NOT NULL,
-                                `landline` TEXT,
-                                `email` TEXT,
-                                `user_name` TEXT NOT NULL,
-                                `language` TEXT NOT NULL,
-                                `wallet_amount` REAL,
-                                `profile_image_url` TEXT,
-                                `current_location` TEXT,
-                                `source` TEXT,
-                                PRIMARY KEY(`id`))""".trimIndent())
+                            createCustomerTable(database)
                         }
                     }
                 } catch (e: SQLiteException) {
@@ -95,5 +66,22 @@ class RoomModule {
                 }
             }
         }
+    }
+
+    fun createCustomerTable(database: SupportSQLiteDatabase){
+        database.execSQL("""CREATE TABLE IF NOT EXISTS `customer` (
+                                `id` INTEGER NOT NULL,
+                                `name` TEXT NOT NULL,
+                                `gender` TEXT NOT NULL,
+                                `mobile` TEXT NOT NULL,
+                                `landline` TEXT,
+                                `email` TEXT,
+                                `user_name` TEXT NOT NULL,
+                                `language` TEXT NOT NULL,
+                                `wallet_amount` REAL,
+                                `profile_image_url` TEXT,
+                                `current_location` TEXT,
+                                `source` TEXT,
+                                PRIMARY KEY(`id`))""".trimIndent())
     }
 }
