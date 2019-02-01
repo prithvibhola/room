@@ -56,6 +56,7 @@ class RoomModule {
                             createCustomerTable(database)
                             database.insert("customer", 0, cv)
                         } else {
+                            database.execSQL("DROP TABLE IF EXISTS `customer`")
                             createCustomerTable(database)
                         }
                     }
