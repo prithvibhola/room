@@ -26,7 +26,7 @@ data class Customer(
 )
 ```
 
-Then over this commit build this commit : `afcc717f5cfa311117e06aeecef1cb52ecad0510`
+Then over this commit build this commit : `4835eb2b26a7e8e27ed266d487f8acf6e41034ef`
 > Which has customer model as:
 
 ```@Entity(tableName = "customer")
